@@ -1,6 +1,6 @@
 import React from "react";
 
-type Props = { children: React.ReactNode; condition: boolean };
+type Props = { children: React.ReactNode; condition: boolean | undefined };
 
 function RenderIf({ children, condition }: Props) {
   if (condition) return <div>{children}</div>;

@@ -11,3 +11,11 @@ export type user = {
   orders: any;
   saldo: number;
 };
+
+export type orders = {
+  userId: string;
+  id: string;
+  price: number;
+  title: string;
+  delivered: boolean;
+};

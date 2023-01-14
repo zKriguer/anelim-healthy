@@ -1,17 +1,33 @@
-import React, { useEffect, useRef, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import ShopAddItem from "./ShopAddItem";
-import { getAllProductsOnShop } from "../utils/fetchers";
-import ShopList from "./ShopList";
+import { getCookie } from "../utils/cookies";
+import { getPublicUserData } from "../utils/fetchers";
+import { user } from "../utils/types/types";
+import RenderIf from "./RenderIf";
+import ShopListAdmin from "./ShopListAdmin";
+import ShopListUser from "./ShopListUser";
 
-type Props = {};
+const ShopAdmin = () => {
+  const [userId] = useState(getCookie("userId"));
+  const [userData, setUserData] = useState<user>();
 
-const ShopAdmin = (props: Props) => {
+  useEffect(() => {
+    getPublicUserData(userId).then((response) => setUserData(response));
+  }, []);
   return (
-    <div className=" p-10 md:p-32 gap-14 flex flex-col">
-      <ShopAddItem />
-      <ShopList />
-    </div>
+    <>
+      <RenderIf condition={userData?.isAdmin}>
+        <div className="p-10 md:p-32 gap-14 flex flex-col justify-center">
+          <ShopAddItem />
+          <ShopListAdmin />
+        </div>
+      </RenderIf>
+      <RenderIf condition={!userData?.isAdmin}>
+        <div className="p-10 md:p-32 gap-14 flex flex-col justify-center">
+          <ShopListUser />
+        </div>
+      </RenderIf>
+    </>
   );
 };
 

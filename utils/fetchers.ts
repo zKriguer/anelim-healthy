@@ -2,21 +2,21 @@ import { mealItem } from "./types/types";
 
 export async function getPrivateData(email: string, password: string) {
   const data = await fetch(
-    `http://localhost:3000/user-profile/${email}/${password}`
+    `http://10.0.0.119:3000/user-profile/${email}/${password}`
   );
 
   return data;
 }
 
 export async function getPublicUserData(userId: string) {
-  const data = await fetch(`http://localhost:3000/user-profile/${userId}/`);
+  const data = await fetch(`http://10.0.0.119:3000/user-profile/${userId}/`);
 
   if (data.ok) return data.json();
 }
 
 export async function instertMeals(userId: string, meal: mealItem) {
   if (!userId || !userId || !meal) return;
-  await fetch(`http://localhost:3000/user-profile/meals/${userId}/`, {
+  await fetch(`http://10.0.0.119:3000/user-profile/meals/${userId}/`, {
     method: "PUT",
     body: JSON.stringify(meal),
     headers: {
@@ -27,7 +27,7 @@ export async function instertMeals(userId: string, meal: mealItem) {
 
 export async function insertProduct(product: any) {
   if (!product) return;
-  fetch("http://localhost:3000/products", {
+  fetch("http://10.0.0.119:3000/products", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -36,11 +36,9 @@ export async function insertProduct(product: any) {
   }).then((response) => response.json());
 }
 
-export async function getAllProductsOnShop() {
-  return fetch("http://localhost:3000/products")
-    .then((response) => response.json())
-    .then((data) => {
-      // faça alguma coisa com os dados aqui
-      return data;
-    });
+export async function deleteProduct(productId: string) {
+  if (!productId) return;
+  fetch(`http://10.0.0.119:3000/products/${productId}`, {
+    method: "delete",
+  }).then((response) => response.json());
 }

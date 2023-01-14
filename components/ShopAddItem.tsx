@@ -1,11 +1,8 @@
 import React, { useRef } from "react";
-import { Modal } from "./Modal";
 import { insertProduct } from "../utils/fetchers";
 import * as Dialog from "@radix-ui/react-dialog";
 
-type Props = {};
-
-const ShopAddItem = (props: Props) => {
+const ShopAddItem = () => {
   const productNameRef = useRef<HTMLInputElement>(null);
   const productPriceRef = useRef<HTMLInputElement>(null);
 
@@ -118,6 +115,7 @@ const ShopAddItem = (props: Props) => {
             </form>
             <Dialog.Close>
               <button
+                onClick={() => setOpen(false)}
                 type="submit"
                 className="fixed top-2 right-2 font-black font-mono"
               >

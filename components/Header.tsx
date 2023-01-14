@@ -37,6 +37,7 @@ const Header = () => {
       <div className="flex items-center justify-around p-2">
         <div>
           <p
+            onClick={() => router.push("/dashboard")}
             className={`cursor-pointer hover:text-transparent hover:bg-clip-text text-white hover:bg-gradient-to-r from-cyan-500 via-yellow-200 to-pink-500 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transition hover:scale-110 duration-200`}
           >
             Anelim
