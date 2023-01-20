@@ -27,6 +27,8 @@ export const Cart = ({ orders, saldo }: Props) => {
     ),
   ];
 
+  console.log(orders);
+
   return (
     <>
       <Dialog.Root>
@@ -59,7 +61,7 @@ export const Cart = ({ orders, saldo }: Props) => {
               )}
             </Dialog.Description>
             <div className="flex flex-col gap-2">
-              {orders?.map((item, index) => {
+              {orders?.map((item: orders, index: number) => {
                 return (
                   <div
                     key={index}

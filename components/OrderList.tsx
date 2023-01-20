@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getPublicUserData } from "../utils/fetchers";
 import { getCookie } from "../utils/cookies";
-import { PRERENDER_REVALIDATE_ONLY_GENERATED_HEADER } from "next/dist/server/api-utils";
 
-type Props = {};
+import { Order, orders, user } from "../utils/types/types";
 
-const OrderList = (props: Props) => {
-  const [userData, setUserData] = useState<any>();
+type item = {};
+const OrderList = () => {
+  const [userData, setUserData] = useState<user>();
   const userId = getCookie("userId");
 
   useEffect(() => {
@@ -20,8 +20,8 @@ const OrderList = (props: Props) => {
     <div className="flex flex-col items-center w-full h-screen justify-center gap-4">
       <div className="bg-zinc-800 rounded-md p-4 ring-2 ring-purple-600 flex flex-col gap-4">
         <h1 className="text-center text-3xl text-white">Meus Pedidos</h1>
-        {userData?.orders.map((item) =>
-          item.pedidos.map((pedido, index) => (
+        {userData?.orders.map((item: Order) =>
+          item.pedidos.map((pedido: orders, index: number) => (
             <div
               key={index}
               className="flex rounded-md items-center w-full justify-between"

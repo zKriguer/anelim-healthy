@@ -5,11 +5,14 @@ export type mealItem = {
 };
 
 export type user = {
-  isAdmin: boolean;
-  meals: mealItem[];
+  _id: string;
   name: string;
-  orders: any;
+  meals: mealItem[];
   saldo: number;
+  orders: Order[];
+  isAdmin: boolean;
+  cart: any[];
+  boyFriendName: string;
 };
 
 export type orders = {
@@ -28,4 +31,9 @@ export type cartItem = {
   title: string;
   delivered: boolean;
   image: string;
+};
+
+export type Order = {
+  idPedido: string;
+  pedidos: orders[];
 };
