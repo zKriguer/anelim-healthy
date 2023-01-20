@@ -35,7 +35,7 @@ export const Cart = ({ orders, saldo }: Props) => {
         <Dialog.Trigger asChild>
           <button
             className={
-              "fixed right-4 bottom-4 bg-zinc-900 text-white hover:text-black p-4 rounded-md transition hover:scale-110 duration-200 hover:bg-gradient-to-r from-cyan-500 via-yellow-200 to-pink-500 cursor-pointer shadow-md shadow-black flex items-center justify-center"
+              "fixed right-4 bottom-4 bg-zinc-900 text-white hover:text-black p-4 rounded-md transition hover:scale-110 duration-200 hover:bg-gradient-to-r from-cyan-500 via-yellow-200 to-pink-500 cursor-pointer shadow-md shadow-black flex items-center justify-center z-20"
             }
             onClick={() => {
               cartOpen ? setCartOpen(false) : setCartOpen(true);
@@ -47,7 +47,7 @@ export const Cart = ({ orders, saldo }: Props) => {
 
         <Dialog.Portal>
           <Dialog.Overlay className={"bg-red"} />
-          <Dialog.Content className="bg-white rounded-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[800px] max-h-[85vh] py-6 px-14 flex flex-col gap-2 overflow-y-auto">
+          <Dialog.Content className="bg-white rounded-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[800px] max-h-[85vh] py-6 px-2 md:px-14 flex flex-col gap-2 overflow-y-auto">
             <Dialog.Title className="text-2xl font-bold text-center">
               Deseja finalizar o pedido?
             </Dialog.Title>
