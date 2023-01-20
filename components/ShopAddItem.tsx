@@ -50,7 +50,7 @@ const ShopAddItem = () => {
         <Dialog.Trigger asChild>
           <button
             onClick={() => setOpen(true)}
-            className="rounded-md shadow-lg shadow-black w-1/2 md:w-1/4 transition hover:scale-110 duration-200 ease-linear"
+            className="rounded-md shadow-lg shadow-black w-1/2 md:w-1/4 transition hover:scale-110 duration-200 ease-linear top-7"
           >
             <p
               className={`bg-zinc-600 w-full text-white hover:text-black px-4 py-2 rounded-md hover:bg-gradient-to-r from-cyan-500 via-yellow-200 to-pink-500 transition hover:scale-110 duration-200 md:text-xl `}

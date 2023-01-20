@@ -9,7 +9,7 @@ import ShopListUser from "./ShopListUser";
 
 const ShopAdmin = () => {
   const [userId] = useState(getCookie("userId"));
-  const [userData, setUserData] = useState<user>();
+  const [userData, setUserData] = useState<any>();
 
   useEffect(() => {
     getPublicUserData(userId).then((response) => setUserData(response));

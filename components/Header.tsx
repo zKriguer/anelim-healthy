@@ -4,14 +4,21 @@ import { useRouter } from "next/router";
 import { getCookie, setCookie } from "../utils/cookies";
 import { getPublicUserData } from "../utils/fetchers";
 import { user } from "../utils/types/types";
+import { useQuery } from "react-query";
 
 const Header = () => {
   const [userId] = useState<string>(getCookie("userId"));
-  const [userData, setUserData] = useState<user>();
 
-  useEffect(() => {
-    getPublicUserData(userId).then((response) => setUserData(response));
-  }, []);
+  const { data } = useQuery(
+    ["saldo"],
+    () => {
+      return getPublicUserData(userId).then((response) => response);
+    },
+    {
+      refetchOnWindowFocus: true,
+      refetchInterval: 10000,
+    }
+  );
 
   const router = useRouter();
   const button: React.ReactNode = (
@@ -25,7 +32,7 @@ const Header = () => {
       className="rounded-md shadow-md shadow-black"
     >
       <p
-        className={`bg-zinc-900 w-full text-white hover:text-black px-4 py-2 rounded-md hover:bg-gradient-to-r from-cyan-500 via-yellow-200 to-pink-500 transition hover:scale-110 duration-200`}
+        className={`bg-zinc-900 w-full text-white hover:text-black p-2 rounded-md hover:bg-gradient-to-r from-cyan-500 via-yellow-200 to-pink-500 transition hover:scale-110 duration-200`}
       >
         Sair
       </p>
@@ -33,7 +40,7 @@ const Header = () => {
   );
 
   return (
-    <div className="bg-purple-500 font-bold text-base">
+    <div className="bg-purple-500 font-bold text-base fixed w-full z-20">
       <div className="flex items-center justify-around p-2">
         <div>
           <p
@@ -43,9 +50,10 @@ const Header = () => {
             Anelim
           </p>
         </div>
+
         <div className="flex flex-row gap-4">
-          <p className="bg-zinc-900 text-white hover:text-black px-4 py-2 rounded-md transition hover:scale-110 duration-200 hover:bg-gradient-to-r from-cyan-500 via-yellow-200 to-pink-500 cursor-pointer shadow-md shadow-black">
-            Saldo: {userData?.saldo} 💸
+          <p className="bg-zinc-900 text-white hover:text-black p-2 rounded-md transition hover:scale-110 duration-200 hover:bg-gradient-to-r from-cyan-500 via-yellow-200 to-pink-500 cursor-pointer shadow-md shadow-black">
+            Saldo: {data?.saldo} 💸
           </p>
           <button
             onClick={() => {
@@ -54,7 +62,7 @@ const Header = () => {
             className="rounded-md shadow-md shadow-black"
           >
             <p
-              className={`bg-zinc-900 w-full text-white hover:text-black px-4 py-2 rounded-md hover:bg-gradient-to-r from-cyan-500 via-yellow-200 to-pink-500 transition hover:scale-110 duration-200`}
+              className={`bg-zinc-900 w-full text-white hover:text-black p-2 rounded-md hover:bg-gradient-to-r from-cyan-500 via-yellow-200 to-pink-500 transition hover:scale-110 duration-200`}
             >
               Loja
             </p>

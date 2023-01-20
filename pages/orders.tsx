@@ -1,19 +1,18 @@
 import React from "react";
-import Header from "../components/Header";
-import ShopAdmin from "../components/ShopAdmin";
+import OrderList from "../components/OrderList";
 import { getCookie } from "../utils/cookies";
 import router from "next/router";
-
-const Shop = () => {
+import Header from "../components/Header";
+function orders() {
   const isAuthenticated = getCookie("isAuthenticated");
 
   if (isAuthenticated == "false") router.push("/");
   return (
     <div>
       <Header />
-      <ShopAdmin />
+      <OrderList />
     </div>
   );
-};
+}
 
-export default Shop;
+export default orders;

@@ -2,6 +2,7 @@ import React, { FormEvent, useRef } from "react";
 import { getPrivateData } from "../utils/fetchers";
 import { useRouter } from "next/router";
 import { setCookie } from "../utils/cookies";
+import { toast } from "react-toastify";
 
 const LoginForm: React.FC = () => {
   const router = useRouter();
@@ -14,19 +15,18 @@ const LoginForm: React.FC = () => {
       const response = await getPrivateData(email, password);
       const user = await response.json();
 
-      console.log(user);
-
       if (response.ok) {
         setCookie("isAuthenticated", "true");
         setCookie("userName", user.name);
         setCookie("userId", user._id);
+        toast.success("Usuário autenticado com sucesso! 🥰");
         router.push("/dashboard");
       } else {
         setCookie("isAuthenticated", "false");
         setCookie("userName", "");
         setCookie("userId", "");
         router.push("/");
-        alert("Dados incorretos");
+        toast.error("Usuário inválido 🤬");
       }
     } catch (error) {
       setCookie("isAuthenticated", "false");
@@ -45,7 +45,7 @@ const LoginForm: React.FC = () => {
     if (email && password) {
       await fetchData(email, password);
     } else {
-      alert("Coloca algo nos inputs");
+      toast.error("Coloca alguma coisa aí nesses inputs 😐");
     }
   };
 

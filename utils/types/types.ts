@@ -1,7 +1,7 @@
 export type mealItem = {
   mealName: string | undefined;
   date: string;
-  isHealth: boolean;
+  isHealthy: boolean;
 };
 
 export type user = {
@@ -18,4 +18,14 @@ export type orders = {
   price: number;
   title: string;
   delivered: boolean;
+  image: string;
+};
+
+export type cartItem = {
+  userId: string;
+  id: string;
+  price: number;
+  title: string;
+  delivered: boolean;
+  image: string;
 };

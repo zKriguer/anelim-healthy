@@ -1,9 +1,10 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { getPublicUserData, instertMeals } from "../utils/fetchers";
 import { getCookie } from "../utils/cookies";
+import { toast } from "react-toastify";
 
 const MealForm: React.FC = () => {
-  const [isHealth, setIsHealth] = useState<boolean>(false);
+  const [isHealthy, setIsHealthy] = useState<boolean>(false);
   const [userId] = useState<string>(getCookie("userId"));
   const [healthChecked, setHealthChecked] = useState<string>();
   const [notHealthChecked, setNotHealthChecked] = useState<string>();
@@ -11,19 +12,20 @@ const MealForm: React.FC = () => {
   const mealRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isHealth) {
+    if (isHealthy) {
       setHealthChecked("bg-purple-500");
       setNotHealthChecked("bg-transparent");
     } else {
       setHealthChecked("bg-transparent");
       setNotHealthChecked("bg-purple-500");
     }
-  }, [isHealth]);
+  }, [isHealthy]);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    if (!mealRef.current?.value) return alert("sas");
+    if (!mealRef.current?.value)
+      return toast.error("Coloque algo no campo de comidinha 🙄");
 
     await instertMeals(userId, {
       mealName: mealRef.current?.value,
@@ -32,12 +34,14 @@ const MealForm: React.FC = () => {
         month: "numeric",
         day: "numeric",
       }),
-      isHealth: isHealth,
+      isHealthy: isHealthy,
     });
+
+    toast.success("Adicionou uma comidinha 🤗");
   };
 
   return (
-    <div className="bg-white rounded-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[450px] max-h-[85vh] py-6 px-14">
+    <div className="bg-white rounded-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[450px] max-h-[85vh] py-6 px-14 ring-2 ring-purple-600">
       <form
         onSubmit={(event) => handleSubmit(event)}
         className="flex flex-col gap-2 items-center"
@@ -47,7 +51,7 @@ const MealForm: React.FC = () => {
             <button
               type="button"
               onClick={() => {
-                setIsHealth(true);
+                setIsHealthy(true);
               }}
               className={`flex items-center ${healthChecked} justify-center flex-col w-fit p-2 rounded-full`}
             >
@@ -60,7 +64,7 @@ const MealForm: React.FC = () => {
             <button
               type="button"
               onClick={() => {
-                setIsHealth(false);
+                setIsHealthy(false);
               }}
               className={`flex items-center ${notHealthChecked} justify-center flex-col w-fit p-2 rounded-full`}
             >

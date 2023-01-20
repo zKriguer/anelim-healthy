@@ -14,8 +14,8 @@ const ShopListAdmin = () => {
   const { data } = useQuery(
     ["products"],
     () => {
-      return fetch("http://localhost:3000/products").then((response) =>
-        response.json()
+      return fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`).then(
+        (response) => response.json()
       );
     },
     {
@@ -26,7 +26,7 @@ const ShopListAdmin = () => {
 
   const { mutate: deleteProduct } = useMutation<void, unknown, string>(
     (productId) => {
-      return fetch(`http://localhost:3000/products/${productId}`, {
+      return fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`, {
         method: "delete",
       }).then((response) => queryClient.invalidateQueries("products"));
     }
@@ -34,7 +34,7 @@ const ShopListAdmin = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 w-full gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 w-full gap-12 top-7">
         {data?.map((item: ItemOnShop) => {
           return (
             <div
